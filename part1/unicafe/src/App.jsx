@@ -4,28 +4,31 @@ const Button = ({ onClick, text }) => {
   return <button onClick={onClick}>{text}</button>;
 };
 
-const Statisticcs = (props) => {
-  if (props.total == 0) {
+const Statisticcs = ({ counters, average, total, positive }) => {
+  if (total == 0) {
     return <p>No feedback given</p>;
   } else {
     return (
-      <div>
-        <br></br>
-        Good:{props.counters.good}
-        <br></br>
-        Neutral:{props.counters.neutral}
-        <br></br>
-        Bad:{props.counters.bad}
-        <br></br>
-        All: {props.total}
-        <br></br>
-        Average: {props.average}
-        <br></br>
-        Positive: {props.positive}%<br></br>
-      </div>
+      <table>
+        <tbody>
+          <StatisticsLine text="good" value={counters.good} />
+          <StatisticsLine text="neutral" value={counters.neutral} />
+          <StatisticsLine text="bad" value={counters.bad} />
+          <StatisticsLine text="total" value={total} />
+          <StatisticsLine text="average" value={average} />
+          <StatisticsLine text="positive" value={`${positive}%`} />
+        </tbody>
+      </table>
     );
   }
 };
+
+const StatisticsLine = ({ text, value }) => (
+  <tr>
+    <td>{text}</td>
+    <td>{value}</td>
+  </tr>
+);
 
 const App = () => {
   let [counters, setCounter] = useState({
