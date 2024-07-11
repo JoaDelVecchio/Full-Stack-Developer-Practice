@@ -2,8 +2,7 @@
 
 This repository contains all the projects and exercises completed as part of the [Full Stack Open](https://fullstackopen.com/en/) course. The course is provided by the University of Helsinki and focuses on modern web development techniques and best practices for becoming a full stack developer.
 
-- [Project 1](Full-Stack-Developer-Practice/part1
-/courseInfo/)
+[Project 1](Full-Stack-Developer-Practice/part1/courseInfo/)
 - [Project 2](project2/README.md): A brief description of Project 2.
 - [Project 3](project3/README.md): A brief description of Project 3.
 - 
