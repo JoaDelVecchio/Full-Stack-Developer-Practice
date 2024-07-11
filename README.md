@@ -2,9 +2,9 @@
 
 This repository contains all the projects and exercises completed as part of the [Full Stack Open](https://fullstackopen.com/en/) course. The course is provided by the University of Helsinki and focuses on modern web development techniques and best practices for becoming a full stack developer.
 
-[Project 1](part1/courseInfo/)
-- [Project 2](project2/README.md): A brief description of Project 2.
-- [Project 3](project3/README.md): A brief description of Project 3.
+- [CourseInfo](part1/courseInfo/): The React Course Info App is a simple project designed to help me understand the basics of React components, props, and state management. The app consists of several components that work together to display the course information.
+- [Unicafe](part1/unicafe/): This is a simple React application for collecting feedback and displaying statistics. Users can provide feedback as "good", "neutral", or "bad", and the app calculates and displays statistics based on the feedback received.
+- [Anecdotes](part1/anecdotes): This is a simple React application for displaying programming anecdotes, allowing users to vote for their favorite, and displaying the most voted anecdote.
 - 
 ## Table of Contents
 
