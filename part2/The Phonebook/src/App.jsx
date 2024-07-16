@@ -1,21 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Persons from "../components/Persons";
 import FilterSearchBar from "../components/FilterSearchBar";
 import Form from "../components/Form";
+import personsService from "./services/persons";
+import axios from "axios";
+
 const App = () => {
+  const [persons, setPersons] = useState([]);
+  const [newName, setNewName] = useState("");
+  const [newPhone, setNewPhone] = useState("");
+  const [newFilter, setNewFilter] = useState("");
+
+  useEffect(() => {
+    personsService.getAll().then((persons) => setPersons(persons));
+  }, []);
+
   const handleNewData = (event) => {
     event.preventDefault();
     if (isRepeated(newName)) {
-      alert(`The name '${newName}' is already on the book`);
+      alert(`El nombre '${newName}' ya está en la lista`);
       return;
     } else if (isRepeated(newPhone)) {
-      alert(`The phone '${newPhone}' is already on the book`);
+      alert(`El teléfono '${newPhone}' ya está en la lista`);
       return;
     } else {
-      let newPersons = [...persons, { name: newName, phone: newPhone }];
-      setPersons(newPersons);
-      setNewName("");
-      setNewPhone("");
+      const newPerson = {
+        name: newName,
+        phone: newPhone,
+        id: persons.length + 1,
+      };
+
+      personsService.create().then((newPerson) => {
+        setPersons([...persons, newPerson]);
+        setNewName("");
+        setNewPhone("");
+      });
     }
   };
 
@@ -32,13 +51,6 @@ const App = () => {
   const isRepeated = (newName) => {
     return !(persons.find((person) => person.name === newName) === undefined);
   };
-
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", phone: "1168777081" },
-  ]);
-  const [newName, setNewName] = useState("");
-  const [newPhone, setNewPhone] = useState("");
-  const [newFilter, setNewFilter] = useState("");
 
   return (
     <div>

@@ -13,7 +13,7 @@ const Form = ({
       phone numbers: <input value={newPhone} onChange={handleNewPhone} />
     </div>
     <div>
-      <button type="submit">add</button>
+      <button type="submit">submit</button>
     </div>
   </form>
 );
