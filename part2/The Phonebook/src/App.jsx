@@ -18,24 +18,43 @@ const App = () => {
   const handleNewData = (event) => {
     event.preventDefault();
     if (isRepeated(newName)) {
-      alert(`El nombre '${newName}' ya está en la lista`);
-      return;
-    } else if (isRepeated(newPhone)) {
-      alert(`El teléfono '${newPhone}' ya está en la lista`);
-      return;
+      if (
+        window.confirm(
+          `${newName} is already on the list. Do you want to replace the phone number?`
+        )
+      ) {
+        let personToBeUpdated = persons.find(
+          (person) => person.name == newName
+        );
+        const personUpdated = {
+          id: personToBeUpdated.id,
+          name: personToBeUpdated.name,
+          phone: newPhone,
+        };
+
+        personsService
+          .update(personToBeUpdated.id, personUpdated)
+          .then((personUpdated) =>
+            setPersons(
+              persons
+                .filter((person) => person.name != newName)
+                .concat(personUpdated)
+            )
+          );
+      }
     } else {
       const newPerson = {
         name: newName,
         phone: newPhone,
-        id: persons.length + 1,
+        id: persons.length + 1 + "",
       };
 
-      personsService.create().then((newPerson) => {
+      personsService.create(newPerson).then((newPerson) => {
         setPersons([...persons, newPerson]);
-        setNewName("");
-        setNewPhone("");
       });
     }
+    setNewName("");
+    setNewPhone("");
   };
 
   const handleNewName = (event) => {
@@ -66,7 +85,11 @@ const App = () => {
       <h2>Numbers</h2>
       <table>
         <tbody>
-          <Persons persons={persons} filter={newFilter} />
+          <Persons
+            persons={persons}
+            filter={newFilter}
+            setPersons={setPersons}
+          />
         </tbody>
       </table>
     </div>

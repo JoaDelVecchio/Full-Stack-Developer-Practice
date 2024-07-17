@@ -7,14 +7,22 @@ const Form = ({
 }) => (
   <form onSubmit={handleNewData}>
     <div>
-      name: <input value={newName} onChange={handleNewName} />
+      <label htmlFor="name">Name:</label>
+      <input id="name" name="name" value={newName} onChange={handleNewName} />
     </div>
     <div>
-      phone numbers: <input value={newPhone} onChange={handleNewPhone} />
+      <label htmlFor="phone">Phone numbers:</label>
+      <input
+        id="phone"
+        name="phone"
+        value={newPhone}
+        onChange={handleNewPhone}
+      />
     </div>
     <div>
-      <button type="submit">submit</button>
+      <button type="submit">Submit</button>
     </div>
   </form>
 );
+
 export default Form;
