@@ -11,6 +11,7 @@ const App = () => {
   const [newPhone, setNewPhone] = useState("");
   const [newFilter, setNewFilter] = useState("");
 
+  // Fetch all persons data when the component mounts
   useEffect(() => {
     personsService.getAll().then((persons) => setPersons(persons));
   }, []);
@@ -18,11 +19,13 @@ const App = () => {
   const handleNewData = (event) => {
     event.preventDefault();
     if (isRepeated(newName)) {
+      // Ask user to confirm phone number replacement if the name already exists
       if (
         window.confirm(
           `${newName} is already on the list. Do you want to replace the phone number?`
         )
       ) {
+        // Find the person to be updated
         let personToBeUpdated = persons.find(
           (person) => person.name == newName
         );
@@ -32,9 +35,11 @@ const App = () => {
           phone: newPhone,
         };
 
+        // Update the person's phone number
         personsService
           .update(personToBeUpdated.id, personUpdated)
           .then((personUpdated) =>
+            // Replace the old entry with the updated one
             setPersons(
               persons
                 .filter((person) => person.name != newName)
@@ -46,13 +51,15 @@ const App = () => {
       const newPerson = {
         name: newName,
         phone: newPhone,
-        id: persons.length + 1 + "",
+        id: persons.length + 1 + "", // Generate a new ID based on the length of the list
       };
 
+      // Add the new person to the list
       personsService.create(newPerson).then((newPerson) => {
         setPersons([...persons, newPerson]);
       });
     }
+    // Reset input fields
     setNewName("");
     setNewPhone("");
   };
@@ -60,13 +67,16 @@ const App = () => {
   const handleNewName = (event) => {
     setNewName(event.target.value);
   };
+
   const handleNewPhone = (event) => {
     setNewPhone(event.target.value);
   };
+
   const handleNewFilter = (event) => {
     setNewFilter(event.target.value);
   };
 
+  // Check if a person with the given name already exists in the list
   const isRepeated = (newName) => {
     return !(persons.find((person) => person.name === newName) === undefined);
   };
